@@ -11,7 +11,6 @@ interface Notification {
   duration?: number;
 }
 
-// Export - useNotifications.ts
 export interface NotificationContextType {
   notifications: Notification[];
   showNotification: (type: NotificationType, title: string, message: string, duration?: number) => void;

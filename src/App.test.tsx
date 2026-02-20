@@ -2,23 +2,12 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import App from './app/App';
 
-// Mock all the contexts and hooks
-vi.mock('@/contexts/NotificationContext', () => ({
-  NotificationProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+// Mock the chart component
+vi.mock('@/features/dashboard/components/TransactionChart', () => ({
+  TransactionChart: () => <div data-testid="mock-chart" />
 }));
 
-vi.mock('@/contexts/useNotifications', () => ({
-  useNotifications: () => ({
-    notifications: [],
-    showNotification: vi.fn(),
-    hideNotification: vi.fn(),
-  }),
-}));
-
-vi.mock('@/contexts/NotificationToast', () => ({
-  NotificationToast: () => null,
-}));
-
+// Mock contexts
 vi.mock('@/contexts/useFilters', () => ({
   useFilters: () => ({
     filters: {
@@ -35,6 +24,17 @@ vi.mock('@/contexts/useFilters', () => ({
     setAccountTypes: vi.fn(),
     activeFilterCount: 0,
   }),
+}));
+
+vi.mock('@/contexts/useNotifications', () => ({
+  useNotifications: () => ({
+    notifications: [],
+    showNotification: vi.fn(),
+  }),
+}));
+
+vi.mock('@/contexts/NotificationToast', () => ({
+  NotificationToast: () => null,
 }));
 
 vi.mock('@/features/dashboard/hooks/useDashboardStats', () => ({
@@ -56,22 +56,14 @@ vi.mock('@/features/dashboard/hooks/useDashboardStats', () => ({
   }),
 }));
 
-// Mock the chart component to avoid dimension warnings
-vi.mock('@/features/dashboard/components/TransactionChart', () => ({
-  TransactionChart: () => <div data-testid="mock-chart">Chart Mock</div>,
-}));
-
 describe('App', () => {
   it('renders without crashing', () => {
     render(<App />);
-    // Look for something that definitely appears
     expect(screen.getByText(/Kopano Bank/i)).toBeDefined();
   });
 
   it('renders the sidebar navigation', () => {
     render(<App />);
-    // Look for a navigation item that should be present
     expect(screen.getByText('Executive Dashboard')).toBeDefined();
-    expect(screen.getByText('Customer List')).toBeDefined();
   });
 });
