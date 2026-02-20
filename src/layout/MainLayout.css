@@ -1,0 +1,27 @@
+/* ===== BASE (Mobile First) ===== */
+
+.main-layout {
+  display: flex;
+  flex-direction: column; /* stack sidebar on top on mobile */
+  min-height: 100vh;
+  background-color: #f5f7fa;
+}
+
+.content {
+  flex: 1;
+  min-width: 0; /* important: allow shrinking in flex */
+  padding: 1rem;
+  overflow-x: hidden; /* prevent horizontal scroll */
+}
+
+/* ===== TABLET (≥ 768px) ===== */
+
+@media (min-width: 768px) {
+  .main-layout {
+    flex-direction: row; /* sidebar + content side by side */
+  }
+
+  .content {
+    padding: 1.5rem;
+  }
+}

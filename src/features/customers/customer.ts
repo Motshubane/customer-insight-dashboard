@@ -1,0 +1,1 @@
+export type { Customer } from "@/features/dashboard/types/customer";

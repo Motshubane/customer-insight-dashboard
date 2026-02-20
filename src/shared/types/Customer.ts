@@ -1,0 +1,6 @@
+export interface Customer {
+  id: string;
+  name: string;
+  age: number;
+  accountType: "Savings" | "Cheque" | "Credit";
+}
